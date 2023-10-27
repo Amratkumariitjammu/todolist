@@ -2,7 +2,6 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from "dotenv"
-
 import userRouter from "./routes/userRoute.js"
 import taskRouter from "./routes/taskRoute.js"
 import forgotPasswordRouter from "./routes/forgotPassword.js"
@@ -16,6 +15,12 @@ app.use(express.static('public'))
 //middlewares
 app.use(express.json())
 app.use(cors())
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //db config
 mongoose.connect(process.env.MONGO_URI, {
@@ -32,6 +37,10 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/user", userRouter)
 app.use("/api/task", taskRouter)
 app.use("/api/forgotPassword", forgotPasswordRouter)
+
+app.get('*', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
+})
 
 //listen
 app.listen(port, () => console.log(`Listening on localhost:${port}`))
