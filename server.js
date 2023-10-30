@@ -32,6 +32,11 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/user", userRouter)
 app.use("/api/task", taskRouter)
 app.use("/api/forgotPassword", forgotPasswordRouter)
+// app.use('/*')
+
+app.get('*', (req, res) => {
+    res,sendFile(__dirname + '/public/index.html')
+})
 
 //listen
 app.listen(port, () => console.log(`Listening on localhost:${port}`))
