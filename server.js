@@ -9,13 +9,13 @@ import forgotPasswordRouter from "./routes/forgotPassword.js"
 //app config
 dotenv.config()
 const app = express()
-const port = process.env.PORT || 8001
+// const port = process.env.PORT || 8001
 mongoose.set('strictQuery', true);
 app.use(express.static('public'))
 //middlewares
 app.use(express.json())
 app.use(cors())
-
+const port = 3069;
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -48,4 +48,4 @@ app.get('*', (req, res) => {
 })
 
 //listen
-app.listen(port, () => console.log(`Listening on localhost:${port}`))
+app.listen(process.env.PORT || port, () => console.log(`Listening on localhost:${port}`))
